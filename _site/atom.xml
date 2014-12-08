@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+ <title>Rohit Varkey Thankachan's blog!</title>
+ <link href="http://rohitvarkey.github.io/atom.xml" rel="self"/>
+ <link href="http://rohitvarkey.github.io/"/>
+ <updated>2014-12-08T20:20:35+05:30</updated>
+ <id>http://rohitvarkey.github.io</id>
+ <author>
+   <name>Rohit Varkey Thankachan</name>
+   <email></email>
+ </author>
+
+ 
+ <entry>
+   <title>Hello World!</title>
+   <link href="http://rohitvarkey.github.io/2014/12/08/hello-world/"/>
+   <updated>2014-12-08T00:00:00+05:30</updated>
+   <id>http://rohitvarkey.github.io/2014/12/08/hello-world</id>
+   <content type="html">&lt;p&gt;This is my first ever post on the blog! So I thought I&amp;#39;d write a little on how I set this blog up.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://pages.github.com&quot;&gt;GitHub Pages&lt;/a&gt; are built with &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll&lt;/a&gt; and I spent the morning reading the Jekyll documentation. It is really well documented and makes it really easy to start creating a blog. The posts can be written in Markdown and is automatically converted to HTML. It also uses the Liquid templating language which is really similar to the Djano templating language.&lt;/p&gt;
+
+&lt;p&gt;So once I got the hang of how Jekyll works, I decided to write my own CSS rules for the look. I had a design in mind but halfway through I got bored and decided to use a theme instead :P. So on searching, I found this theme called &lt;a href=&quot;http://hyde.getpoole.com&quot;&gt;Hyde&lt;/a&gt;. It was almost exactly what I had in mind and I decided to give it a try.&lt;/p&gt;
+
+&lt;p&gt;Getting the theme integrated was easy as all you had to was to download the GitHub repo and copy it to the blog directory. I then changed the values in the _config.yaml file to ones specific to my site. So now it was almost done. But I wanted to add a archive link also. That was easy using the templating language. And then all that was left was to write this post!&lt;/p&gt;
+
+&lt;p&gt;You can find the code &lt;a href=&quot;http://github.com/rohitvarkey/rohitvarkey.github.io&quot;&gt;here&lt;/a&gt;. Thanks for reading! &lt;/p&gt;
+</content>
+ </entry>
+ 
+
+</feed>
