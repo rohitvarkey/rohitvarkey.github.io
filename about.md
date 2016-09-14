@@ -4,9 +4,9 @@ title: About
 ---
 
 Hey there! This is Rohit Varkey Thankachan's blog, a Computer Science Masters student at [Georgia Tech](http://www.gatech.edu/).
-I am passionate about the open source and a Pythonista and Julian! 
+I am passionate about the open source and a Pythonista and Julian! My resume can be found [here]({{site.url}}/public/Rohit-Varkey-Thankachan-Resume.pdf). 
 
-I completed my undergrad at [National Institute of Technology Karnataka, Surathkal](http://nitk.ac.in). 
+I completed my undergrad at [National Institute of Technology Karnataka, Surathkal](http://nitk.ac.in) in May 2016. 
 
 I enjoy soccer and am also a Kerala Blasters and Manchester United fan!
 
