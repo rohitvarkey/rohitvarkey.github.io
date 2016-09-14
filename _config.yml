@@ -11,6 +11,7 @@ tagline:          'rohitvarkey authors here'
 description:      'I read about code. Write a little of it too! This blog lists my experiences while playing with code.'
 url:              http://rohitvarkey.github.io
 baseurl:          /
+gems: [jekyll-paginate]
 
 author:
   name:           'Rohit Varkey Thankachan'
