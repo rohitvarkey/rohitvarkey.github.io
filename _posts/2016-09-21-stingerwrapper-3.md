@@ -75,9 +75,9 @@ with the following results for 10000000 samples.
 |Type unstable|366.00 ns (0.00% GC)|398.00 ns (0.00% GC)|433.29 ns (1.10% GC)|14.44 ms (99.79% GC)|32.00 bytes|
 |Type stable|38.00 ns (0.00% GC)|41.00 ns (0.00% GC)|43.95 ns (0.00% GC)|219.11 μs (0.00% GC)|0.00 bytes|
 
-These results justify our decision to specialize `getindex` for just the `Int64`
-types with almost an order of magnitude performance gain in terms of time and a 100% gain in
-memory used. Finally, the syntax users can use to get or set fields on the `Stinger` wrapper
+These results show an order of magnitute reduction in latency for these core
+operations and completely eliminate the need for memory allocation and garbage collection.
+Finally, the syntax users can use to get or set fields on the `Stinger` wrapper
 time is
 
 ```julia

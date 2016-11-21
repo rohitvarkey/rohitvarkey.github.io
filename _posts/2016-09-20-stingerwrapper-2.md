@@ -33,7 +33,7 @@ At this point, we had 2 options.
 
 We weren't sure if option 1 would work because of the unknown sized arrays at the
 end of the `STINGER` C structure definition. It wasn't clear if Julia could automatically
-decode C structures which had complete mappings between Julia and C either.
+decode C structures which had complete mappings between Julia and C either.[http://docs.julialang.org/en/release-0.5/manual/calling-c-and-fortran-code/#mapping-c-types-to-julia]
 In order to figure out these questions, we decided to write a few tests and check
 how Julia performs in these situations. We tried to see if `unsafe_load` and
 `unsafe_store!` would work in the following cases:
@@ -42,7 +42,7 @@ how Julia performs in these situations. We tried to see if `unsafe_load` and
 2. A C structure with an unknown array at the end and a Julia mapping leaving
 out the unknown array.
 
-Both of these experiments were successful. So, we implemented a Julia mapping
+Both of these implementations work, as shown by this experiment[https://github.com/rohitvarkey/Julia-C-Experiments]. So, we implemented a Julia mapping
 for the `STINGER` C structure leaving out the unknown array. Now, we
 could do a `unsafe_load` on the pointer handle to the `STINGER` C object, to
 load a representation in Julia. We could then modify it and use `unsafe_store!`
@@ -50,7 +50,7 @@ to write it back to C. A workflow such as the following was possible at this
 point.
 
 ```julia
-s #Some `Stinger` object with a handle to the `STINGER` C pointer
+s = Stinger() #Creating a `Stinger` object with a handle to the `STINGER` C pointer
 #The convert is required to tell Julia to decode as a `StingerGraph`
 sgraph = unsafe_load(convert(Ptr{StingerGraph}, s.handle))
 #Attributes available using normal Julia syntax to perform gets and sets on.
@@ -60,13 +60,12 @@ unsafe_store!((convert(Ptr{StingerGraph}, s.handle), s)
 
 Integrating this functionality with the wrapper type we
 created in part 1 was our next goal. Here, we had to deal with a major restriction
-that is brought about
-when working with a Julia type that has an incomplete mapping to the C type like
-`STINGER`, i.e, **Memory has to be allocated in C.** This restriction is
-enforced because `STINGER`'s' C internal functions make use of the unknown size arrays,
-which will not be allocated if we let Julia handle the memory allocation.
-A handle to the C allocated memory **has** to be maintained to be able to address
-this memory from Julia.
+that is brought about when working with a Julia type that has an incomplete
+mapping to the C type like `STINGER`, i.e, **Memory MUST be allocated in C.**
+This restriction is enforced because `STINGER`'s' C internal functions make use
+of the unknown size arrays, which will not be allocated if we let Julia handle
+the memory allocation. A handle to the C allocated memory **MUST** be maintained
+to be able to address this memory from Julia.
 
 A major design decision at this point was:
 
@@ -93,9 +92,38 @@ table.
 |ccalls|Has to be updated after every `ccall`. Loads occurring for every `ccall`| No op|
 
 Using this table, it was obvious that had to choose between a design depending on
-the number of  `ccalls` and `getfields` expected. The workflow we expect from the user will
-generally contain more `ccalls` than `getfields`. This led to us deciding to use
-the lazy approach.
+the number of  `ccalls` and `getfields` expected.
+We modeled the time taken for set, load and ccalls in the following equation.
+
+`T = αS + βL + γC`, where S - number of sets, L - number of loads, C - number of ccalls
+
+For the eager approach:
+
+- S = SF, number of setfields
+- L = C, number of ccalls
+- C = C
+
+`Te = αSF + βC + γC`
+
+For the lazy approach:
+
+- S = SF, number of setfields
+- L = GF, number of getfields
+- C = C
+
+`Tl = αSF + βCF + γC`
+
+`Te - Tl = β(C - GF)`
+
+The workflow we expect from the user will
+generally contain more `ccalls` than `getfields`.
+
+```
+G > CF
+=> Tl < Te
+```
+
+Hence, we decided to use the lazy approach.
 
 We had one final design decision to make regarding the mapping.
 
