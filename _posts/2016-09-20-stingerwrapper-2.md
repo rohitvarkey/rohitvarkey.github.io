@@ -33,7 +33,7 @@ At this point, we had 2 options.
 
 We weren't sure if option 1 would work because of the unknown sized arrays at the
 end of the `STINGER` C structure definition. It wasn't clear if Julia could automatically
-decode C structures which had complete mappings between Julia and C either.[http://docs.julialang.org/en/release-0.5/manual/calling-c-and-fortran-code/#mapping-c-types-to-julia]
+decode C structures which had complete mappings between Julia and C [either]([http://docs.julialang.org/en/release-0.5/manual/calling-c-and-fortran-code/#mapping-c-types-to-julia]).
 In order to figure out these questions, we decided to write a few tests and check
 how Julia performs in these situations. We tried to see if `unsafe_load` and
 `unsafe_store!` would work in the following cases:
@@ -42,7 +42,7 @@ how Julia performs in these situations. We tried to see if `unsafe_load` and
 2. A C structure with an unknown array at the end and a Julia mapping leaving
 out the unknown array.
 
-Both of these implementations work, as shown by this experiment[https://github.com/rohitvarkey/Julia-C-Experiments]. So, we implemented a Julia mapping
+Both of these implementations work, as shown by this [experiment](https://github.com/rohitvarkey/Julia-C-Experiments). So, we implemented a Julia mapping
 for the `STINGER` C structure leaving out the unknown array. Now, we
 could do a `unsafe_load` on the pointer handle to the `STINGER` C object, to
 load a representation in Julia. We could then modify it and use `unsafe_store!`
